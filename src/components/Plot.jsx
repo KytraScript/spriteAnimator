@@ -1,24 +1,24 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext, useReducer} from 'react';
+import { PlayerContext } from '../context/PlayerContext.jsx';
 
-const Plot = (props) => {
+const Plot = ( {obj} ) => {
+
+    const { player, subWallet, addWallet } = useContext(PlayerContext);
+
+    const [cost] = useState(obj.cost);
 
     const purchase = () => {
-        if (!props.obj.bought) {
-            props.obj.bought = true;
-            props.updateWallet(props.wallet - props.obj.cost);
-        } else {
-            console.log('you have already purchased this plot');
-        }
+        subWallet({cost})
     };
 
     return (
         <div className={'plot-container'}>
-            <div className={props.obj.bought ? 'plot' : 'plot locked'} onClick={purchase}>
-                {props.obj.creature ? '' : ''}
+            <div className={obj.bought ? 'plot' : 'plot locked'} onClick={purchase}>
+                {obj.creature ? '' : ''}
             </div>
             <div className={'plot-info'}>
-                <div>Biome: {props.obj.climate}</div>
-                <div>Cost: {props.obj.cost}</div>
+                <div>Biome: {obj.climate}</div>
+                <div>Cost: {obj.cost}</div>
             </div>
         </div>
     );

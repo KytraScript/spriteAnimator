@@ -10,7 +10,30 @@
     <link href="https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap" rel="stylesheet">
 </head>
 <body>
+<div class="parallax" id="bg-last"></div>
+<div class="parallax" id="bg-mid"></div>
+<div class="parallax" id="bg-top"></div>
 <div id="root"></div>
 <script type="text/javascript" src="bundle.js"></script>
+<script>
+    let back = document.querySelector('#bg-last'),
+        mid = document.querySelector('#bg-mid'),
+        front = document.querySelector('#bg-top');
+
+    function reset(el, cb){
+        el.setAttribute('style', `transition:none; background-position-x: 0vw`);
+        setTimeout(cb, 33)
+    }
+
+    function paraEl(el, dur){
+        el.setAttribute('style', `background-position-x: -100vw`);
+        setTimeout(() => reset(el, () => paraEl(el, dur)), dur);
+    }
+
+    paraEl(front, 40000);
+    paraEl(mid, 70000);
+    paraEl(back, 120000);
+
+</script>
 </body>
 </html>

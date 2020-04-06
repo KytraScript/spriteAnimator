@@ -1,13 +1,16 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import Plot from './Plot.jsx';
+import { PlotsContext } from '../context/PlotsContext.jsx';
 
-const MapPanel = (props) => {
+const MapPanel = () => {
+
+    const plots = useContext(PlotsContext);
 
     return (
         <div className={'game-map'}>
             <div className={'plots-wrapper'}>
-                {props.plots.map( (item, index) => {
-                    return <Plot obj={item} key={index} updatePlots={props.updatePlots} wallet={props.wallet} updateWallet={props.updateWallet}/>
+                {plots.map( (item, index) => {
+                    return <Plot obj={item} key={index}/>
                 })}
             </div>
         </div>
